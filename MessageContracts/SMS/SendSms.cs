@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace MessageContracts.SMS
 {
-    [EntityName("SendSms")]
+   [EntityName("SendSms")]
    public interface SendSms
     {
         string PhoneNumber { get; set; }
         string SmsText { get; set; }
-        Guid? IdempotenceKey { get; set; }
+        Guid  IdempotenceKey { get; set; }
     }
 }

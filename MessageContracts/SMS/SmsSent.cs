@@ -13,4 +13,14 @@ namespace MessageContracts.SMS
     {
         string message { get; set; }
     }
+
+    public class SmsSentEvent : SmsSent
+    {
+        public SmsSentEvent(string message)
+        {
+            this.message = message;
+        }
+
+        public string message { get; set; }
+    }
 }
