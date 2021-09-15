@@ -1,10 +1,10 @@
 
 # README:
 The solution is structured into five projects
-1. DataAccessLayer : Is A class library that is managing all database operations.
-2. MessageContracts :Is a class library project, and hosts message contracts only.A message contract is just an interface that defines a message type, but does not include any methods or behaviors.
-3. MessageComponets : class library project, and it will host our consumer classes and the abstracted 3rd party api service
-4. SmsMicroservice :  Is a ASP.NET Core worker Application.
+1. DataAccessLayer :  A class library that is managing all database operations.
+2. MessageContracts :A class library project, and hosts message contracts only.A message contract is just an interface that defines a message type, but does not include any methods or behaviors.
+3. MessageComponets : A class library project, and it will host our consumer classes and the abstracted 3rd party api service
+4. SmsMicroservice :  A ASP.NET Core worker Application.
 5. SmsMicroserviceTests: Contains the project tests
 
 .The project is using [MassTransit](https://masstransit-project.com/) :A free, open-source distributed application framework for .NET and and for this excercise am using in memory event bus for testing purpose ,any broker can be registered in the startup.cs file and will work fine.
