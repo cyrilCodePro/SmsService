@@ -12,15 +12,18 @@ namespace MessageContracts.SMS
     public interface SmsSent
     {
         string message { get; set; }
+        Guid IdempotenceKey { get; set; }
     }
 
     public class SmsSentEvent : SmsSent
     {
-        public SmsSentEvent(string message)
+        public SmsSentEvent(string message, Guid id)
         {
             this.message = message;
+            IdempotenceKey = id;
         }
 
         public string message { get; set; }
+        public Guid IdempotenceKey { get; set; }
     }
 }

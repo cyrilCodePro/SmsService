@@ -23,7 +23,7 @@ namespace MessageComponets.StateMachine
            
             Initially(
                 When(SendSms)
-                .Publish(context => (SmsSent)new SmsSentEvent("sms sent succefully"))
+                .Publish(context => (SmsSent)new SmsSentEvent("sms sent succefully",context.Instance.CorrelationId))
                  .Then(x => logger?.LogInformation("Message sent and event published the idempotence key for the event is {Id}",x.Instance.CorrelationId))
                  .TransitionTo(SmsSubmitted));
 
