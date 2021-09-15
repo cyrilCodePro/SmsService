@@ -1,10 +1,14 @@
+using DataAccessLayer;
+
 using MassTransit;
 using MassTransit.Topology;
 
 using MessageComponets;
 using MessageComponets.SmsConsumers;
+
 using MessageComponets.StateMachine;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 namespace SmsMicroservice
@@ -28,9 +32,14 @@ namespace SmsMicroservice
                         // Add all consumers in the specified assembly
                         cfg.AddConsumers(typeof(SendSmsConsumer).Assembly);
                      
-
-                        cfg.UsingRabbitMq((context, cfg) =>
+                       
+                        cfg.UsingInMemory((context, cfg) =>
                         {
+                            cfg.ReceiveEndpoint("send-sms", e =>
+                            {
+                                e.ConfigureConsumer<SendSmsConsumer>(context);
+                            });
+                            cfg.UseInMemoryOutbox();
                             cfg.ConfigureEndpoints(context);
                         });
 
@@ -38,6 +47,7 @@ namespace SmsMicroservice
                
                     services.AddMassTransitHostedService();
                     services.AddMessageComponetsExtensions();
+                    services.AddDataAccessLayer(hostContext.Configuration);
                     services.AddHostedService<Worker>();
                 });
     }

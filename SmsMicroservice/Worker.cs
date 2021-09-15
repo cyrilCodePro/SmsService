@@ -17,11 +17,13 @@ namespace SmsMicroservice
     {
         private readonly ILogger<Worker> _logger;
         readonly IBus _bus;
+        private readonly Guid Key;
 
         public Worker(ILogger<Worker> logger,IBus bus)
         {
             _logger = logger;
             _bus = bus;
+            Key = Guid.NewGuid();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -32,7 +34,7 @@ namespace SmsMicroservice
                 {
                     PhoneNumber = "+254702831844",
                     SmsText = "Hey",
-                    IdempotenceKey = Guid.NewGuid()
+                    IdempotenceKey = Guid.NewGuid(),    
 
                 });
 

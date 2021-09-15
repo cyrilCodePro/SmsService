@@ -19,8 +19,8 @@ namespace MessageComponets.ApiService
 
         public async Task SendSmsToApi(object payload)
         {
-            await Task.Delay(1000);
-            _logger.LogInformation("Sms Api sent to third party");
+            await Task.Delay(500);
+            _logger.LogInformation("Message sent to sms provider");
         }
     }
 }

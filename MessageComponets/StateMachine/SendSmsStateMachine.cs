@@ -24,19 +24,23 @@ namespace MessageComponets.StateMachine
             Initially(
                 When(SendSms)
                 .Publish(context => (SmsSent)new SmsSentEvent("sms sent succefully"))
-                 .Then(x => logger.LogInformation("Here is hit"))) ;
+                 .Then(x => logger?.LogInformation("Message sent and event published the idempotence key for the event is {Id}",x.Instance.CorrelationId))
+                 .TransitionTo(SmsSubmitted));
+
+            During(SmsSubmitted,
+                When(SendSms)
+                    .Then(x => logger?.LogInformation("Sms already sent")));
+
+
 
         }
         public void ConfigureCorrelationIds()
         {
-            Event(() => SendSms,
-    x => x.CorrelateById(x => x.Message.IdempotenceKey)
-       .SelectId(c => c.Message.IdempotenceKey));
-
-        }
+            Event(() => SendSms, x => x.CorrelateById(m => m.Message.IdempotenceKey));
+         }
         
      
-      public State SmsSent { get; private set; }
+      public State SmsSubmitted { get; set; }
       public Event<SendSms> SendSms { get; private set; }
 
 
