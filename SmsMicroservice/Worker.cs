@@ -34,7 +34,7 @@ namespace SmsMicroservice
                 {
                     PhoneNumber = "+254702831844",
                     SmsText = "Hey",
-                    IdempotenceKey = Guid.NewGuid(),    
+                    IdempotenceKey = Key  
 
                 });
 

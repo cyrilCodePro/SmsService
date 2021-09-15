@@ -38,7 +38,7 @@ namespace MessageComponets.SmsConsumers
         public async Task Consume(ConsumeContext<SendSms> context)
         {
 
-            var transactions = _transactionService == null ? false : await _transactionService?.CheckIfItExists(context.Message.IdempotenceKey);
+            var transactions = _transactionService != null && await _transactionService?.CheckIfItExists(context.Message.IdempotenceKey);
            
             if (!transactions)
             {
